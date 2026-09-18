@@ -7,312 +7,476 @@
 <title>EduPulse AI</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background: #f5f7fb;
-    color: #171923;
-    padding-bottom: 80px;
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:#f6f7fb;
+    color:#171927;
+    padding-bottom:90px;
 }
 
-header {
-    background: white;
-    padding: 18px 20px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    border-bottom: 1px solid #e8eaf0;
+button,input{
+    font:inherit;
 }
 
-.logo {
-    font-size: 22px;
-    font-weight: 800;
+button{
+    cursor:pointer;
 }
 
-.logo span {
-    color: #6c63ff;
+.header{
+    background:white;
+    padding:18px 20px;
+    position:sticky;
+    top:0;
+    z-index:20;
+    border-bottom:1px solid #eee;
 }
 
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
+.logo{
+    font-size:22px;
+    font-weight:800;
 }
 
-h1 {
-    font-size: 28px;
-    margin-bottom: 8px;
+.logo span{
+    color:#6c63ff;
 }
 
-.subtitle {
-    color: #6b7280;
-    margin-bottom: 20px;
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
 }
 
-.search {
-    width: 100%;
-    padding: 14px 16px;
-    border: 1px solid #ddd;
-    border-radius: 14px;
-    font-size: 15px;
-    margin-bottom: 15px;
-    outline: none;
+.page{
+    display:none;
 }
 
-.filters {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    margin-bottom: 20px;
+.page.active{
+    display:block;
 }
 
-.filter {
-    border: none;
-    background: white;
-    padding: 10px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    white-space: nowrap;
+h1{
+    font-size:28px;
+    margin-bottom:7px;
 }
 
-.filter.active {
-    background: #6c63ff;
-    color: white;
+.subtitle{
+    color:#777;
+    margin-bottom:20px;
 }
 
-.card {
-    background: white;
-    border-radius: 18px;
-    padding: 18px;
-    margin-bottom: 14px;
-    box-shadow: 0 4px 15px rgba(0,0,0,.05);
+/* HERO */
+
+.hero{
+    background:linear-gradient(135deg,#6158ff,#8b83ff);
+    color:white;
+    padding:25px;
+    border-radius:25px;
+    margin-bottom:20px;
+    box-shadow:0 10px 30px rgba(108,99,255,.2);
 }
 
-.card-top {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
+.hero small{
+    opacity:.85;
 }
 
-.card h3 {
-    font-size: 18px;
-    margin-bottom: 7px;
+.hero h1{
+    margin:7px 0;
 }
 
-.type {
-    display: inline-block;
-    background: #eeeaff;
-    color: #5b52d6;
-    padding: 5px 9px;
-    border-radius: 8px;
-    font-size: 12px;
-    margin-bottom: 10px;
+.hero p{
+    opacity:.9;
+    line-height:1.5;
 }
 
-.info {
-    color: #626878;
-    font-size: 14px;
-    line-height: 1.6;
+.hero button{
+    margin-top:18px;
+    background:white;
+    color:#5d55e9;
+    border:0;
+    padding:12px 18px;
+    border-radius:12px;
+    font-weight:bold;
 }
 
-.portfolio {
-    margin-top: 12px;
-    padding: 10px;
-    border-radius: 10px;
-    background: #f3f4ff;
-    font-size: 13px;
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-bottom:22px;
 }
 
-.buttons {
-    display: flex;
-    gap: 8px;
-    margin-top: 15px;
+.stat{
+    background:white;
+    padding:15px;
+    border-radius:17px;
+    text-align:center;
 }
 
-button {
-    font-family: inherit;
+.stat b{
+    display:block;
+    font-size:22px;
+    margin-bottom:4px;
 }
 
-.primary {
-    flex: 1;
-    border: none;
-    background: #6c63ff;
-    color: white;
-    padding: 12px;
-    border-radius: 11px;
-    cursor: pointer;
+.stat span{
+    color:#777;
+    font-size:12px;
 }
 
-.secondary {
-    border: 1px solid #ddd;
-    background: white;
-    padding: 12px 15px;
-    border-radius: 11px;
-    cursor: pointer;
+/* SEARCH */
+
+.search{
+    width:100%;
+    border:1px solid #ddd;
+    background:white;
+    padding:14px 16px;
+    border-radius:14px;
+    outline:none;
+    margin-bottom:12px;
 }
 
-.favorite {
-    font-size: 24px;
-    border: none;
-    background: none;
-    cursor: pointer;
+.filters{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    margin-bottom:18px;
 }
 
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 68px;
-    background: white;
-    border-top: 1px solid #ddd;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    z-index: 20;
+.filter{
+    border:0;
+    background:white;
+    padding:9px 14px;
+    border-radius:20px;
+    white-space:nowrap;
 }
 
-.nav-btn {
-    border: none;
-    background: none;
-    color: #777;
-    cursor: pointer;
-    font-size: 12px;
+.filter.active{
+    background:#6c63ff;
+    color:white;
 }
 
-.nav-btn div {
-    font-size: 23px;
-    margin-bottom: 3px;
+/* DEADLINE */
+
+.deadline-title{
+    display:flex;
+    justify-content:space-between;
+    margin:20px 0 12px;
 }
 
-.nav-btn.active {
-    color: #6c63ff;
-    font-weight: bold;
+.deadline-title a{
+    color:#6c63ff;
+    font-size:13px;
 }
 
-.page {
-    display: none;
+/* CARD */
+
+.card{
+    background:white;
+    border-radius:20px;
+    padding:18px;
+    margin-bottom:13px;
+    box-shadow:0 5px 20px rgba(0,0,0,.04);
 }
 
-.page.active {
-    display: block;
+.card-head{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.type{
+    display:inline-block;
+    background:#eeedff;
+    color:#5c54df;
+    padding:5px 9px;
+    border-radius:8px;
+    font-size:11px;
+    margin-bottom:9px;
+}
+
+.card h3{
+    font-size:17px;
+    line-height:1.3;
+}
+
+.heart{
+    border:0;
+    background:none;
+    font-size:24px;
+    height:35px;
+}
+
+.info{
+    color:#666;
+    font-size:13px;
+    line-height:1.7;
+    margin-top:10px;
+}
+
+.tags{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-top:12px;
+}
+
+.tag{
+    background:#f1f2f6;
+    padding:5px 8px;
+    border-radius:7px;
+    font-size:11px;
+}
+
+.portfolio{
+    background:#f2f1ff;
+    color:#554ddd;
+    padding:10px;
+    border-radius:10px;
+    margin-top:12px;
+    font-size:12px;
+}
+
+.buttons{
+    display:flex;
+    gap:8px;
+    margin-top:14px;
+}
+
+.primary{
+    flex:1;
+    border:0;
+    background:#6c63ff;
+    color:white;
+    padding:12px;
+    border-radius:11px;
+}
+
+.secondary{
+    border:1px solid #ddd;
+    background:white;
+    padding:12px 14px;
+    border-radius:11px;
 }
 
 /* AI */
 
-.ai-box {
-    background: linear-gradient(135deg, #6c63ff, #8f88ff);
-    color: white;
-    padding: 25px;
-    border-radius: 22px;
-    margin-bottom: 20px;
+.ai-header{
+    background:linear-gradient(135deg,#171927,#39374f);
+    color:white;
+    padding:24px;
+    border-radius:23px;
+    margin-bottom:16px;
 }
 
-.ai-box h2 {
-    margin-bottom: 8px;
+.ai-header h2{
+    margin-bottom:8px;
 }
 
-.ai-box p {
-    opacity: .9;
+.ai-header p{
+    opacity:.8;
+    line-height:1.5;
 }
 
-.question {
-    background: white;
-    padding: 20px;
-    border-radius: 18px;
-    margin-bottom: 15px;
+.question{
+    background:white;
+    padding:20px;
+    border-radius:19px;
+    margin-bottom:14px;
 }
 
-.question h3 {
-    margin-bottom: 15px;
+.question h3{
+    margin-bottom:15px;
 }
 
-.options {
-    display: grid;
-    gap: 10px;
+.options{
+    display:grid;
+    gap:9px;
 }
 
-.option {
-    padding: 13px;
-    border: 1px solid #ddd;
-    background: white;
-    border-radius: 12px;
-    text-align: left;
-    cursor: pointer;
+.option{
+    border:1px solid #ddd;
+    background:white;
+    padding:13px;
+    border-radius:11px;
+    text-align:left;
 }
 
-.option.selected {
-    border-color: #6c63ff;
-    background: #f0efff;
+.option.selected{
+    border-color:#6c63ff;
+    background:#f0efff;
 }
 
-.ai-result {
-    margin-top: 20px;
+.ai-result{
+    margin-top:20px;
 }
 
-.empty {
-    text-align: center;
-    padding: 50px 20px;
-    color: #777;
+/* PORTFOLIO */
+
+.progress-card{
+    background:white;
+    padding:20px;
+    border-radius:20px;
+    margin-bottom:15px;
 }
 
-/* modal */
-
-.modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.5);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    padding: 20px;
+.progress{
+    height:10px;
+    background:#eee;
+    border-radius:10px;
+    overflow:hidden;
+    margin:12px 0;
 }
 
-.modal.active {
-    display: flex;
+.progress div{
+    height:100%;
+    width:62%;
+    background:#6c63ff;
 }
 
-.modal-content {
-    background: white;
-    width: 100%;
-    max-width: 500px;
-    max-height: 90vh;
-    overflow-y: auto;
-    border-radius: 22px;
-    padding: 22px;
+.portfolio-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
 }
 
-.close {
-    float: right;
-    border: none;
-    background: none;
-    font-size: 25px;
-    cursor: pointer;
+.portfolio-item{
+    background:white;
+    padding:17px;
+    border-radius:17px;
 }
 
-.modal h2 {
-    margin: 15px 0;
+.portfolio-item b{
+    font-size:21px;
+    display:block;
+    margin-bottom:5px;
 }
 
-.modal p {
-    line-height: 1.7;
-    color: #555;
-    margin-bottom: 12px;
+.portfolio-item span{
+    color:#777;
+    font-size:12px;
 }
 
-@media(max-width:600px) {
-    h1 {
-        font-size: 25px;
+/* TEAM */
+
+.team-card{
+    background:white;
+    padding:18px;
+    border-radius:19px;
+    margin-bottom:12px;
+}
+
+.team-title{
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.members{
+    color:#777;
+    font-size:13px;
+    line-height:1.6;
+    margin:10px 0;
+}
+
+/* NAV */
+
+.nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:75px;
+    background:white;
+    border-top:1px solid #e5e5e5;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:50;
+}
+
+.nav button{
+    border:0;
+    background:none;
+    color:#888;
+    font-size:11px;
+}
+
+.nav button div{
+    font-size:22px;
+    margin-bottom:3px;
+}
+
+.nav button.active{
+    color:#6c63ff;
+    font-weight:bold;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+    z-index:100;
+}
+
+.modal.active{
+    display:flex;
+}
+
+.modal-box{
+    background:white;
+    max-width:500px;
+    width:100%;
+    max-height:90vh;
+    overflow:auto;
+    border-radius:23px;
+    padding:22px;
+}
+
+.close{
+    float:right;
+    border:0;
+    background:none;
+    font-size:27px;
+}
+
+.modal-box p{
+    color:#666;
+    line-height:1.6;
+    margin:12px 0;
+}
+
+/* EMPTY */
+
+.empty{
+    text-align:center;
+    color:#777;
+    padding:45px 15px;
+}
+
+@media(max-width:600px){
+    .stats{
+        gap:7px;
     }
 
-    .container {
-        padding: 16px;
+    .stat{
+        padding:12px 5px;
+    }
+
+    .stat b{
+        font-size:19px;
     }
 }
 </style>
@@ -320,75 +484,135 @@ button {
 
 <body>
 
-<header>
+<header class="header">
     <div class="logo">EduPulse <span>AI</span></div>
 </header>
 
 
-<!-- HOME -->
+<!-- ================= HOME ================= -->
 
-<div id="home" class="page active">
+<section id="home" class="page active">
 
 <div class="container">
 
-<h1>Возможности рядом 🎯</h1>
+<div class="hero">
 
-<p class="subtitle">
-Олимпиады, конкурсы, дебаты и проекты в одном месте
+<small>👋 Добро пожаловать</small>
+
+<h1>Твои возможности уже здесь</h1>
+
+<p>
+AI помогает находить олимпиады, конкурсы и проекты,
+которые подходят именно тебе.
 </p>
 
+<button onclick="showPage('ai')">
+🤖 Подобрать для меня
+</button>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+<b>7</b>
+<span>мероприятий</span>
+</div>
+
+<div class="stat">
+<b>3</b>
+<span>дедлайна</span>
+</div>
+
+<div class="stat">
+<b>62%</b>
+<span>портфолио</span>
+</div>
+
+</div>
+
+
+<div class="deadline-title">
+
+<h2>⏰ Ближайшие дедлайны</h2>
+
+<a onclick="setFilter('Все')">
+Все
+</a>
+
+</div>
+
+
+<div id="deadlines"></div>
+
+
+<h2 style="margin:25px 0 12px">
+🎯 Все возможности
+</h2>
+
+
 <input
-    id="search"
-    class="search"
-    placeholder="🔎 Найти олимпиаду, конкурс..."
-    oninput="renderEvents()"
+class="search"
+id="search"
+placeholder="🔎 Найти мероприятие..."
+oninput="renderEvents()"
 >
+
 
 <div class="filters">
 
-<button class="filter active" onclick="setFilter('Все',this)">
+<button class="filter active"
+onclick="setFilter('Все',this)">
 Все
 </button>
 
-<button class="filter" onclick="setFilter('Олимпиада',this)">
+<button class="filter"
+onclick="setFilter('Олимпиада',this)">
 Олимпиады
 </button>
 
-<button class="filter" onclick="setFilter('Дебаты',this)">
-Дебаты
-</button>
-
-<button class="filter" onclick="setFilter('Конкурс',this)">
+<button class="filter"
+onclick="setFilter('Конкурс',this)">
 Конкурсы
 </button>
 
-<button class="filter" onclick="setFilter('Проект',this)">
+<button class="filter"
+onclick="setFilter('Дебаты',this)">
+Дебаты
+</button>
+
+<button class="filter"
+onclick="setFilter('Проект',this)">
 Проекты
 </button>
 
 </div>
 
+
 <div id="events"></div>
 
 </div>
-</div>
+</section>
 
 
-<!-- AI -->
+<!-- ================= AI ================= -->
 
-<div id="ai" class="page">
+<section id="ai" class="page">
 
 <div class="container">
 
-<div class="ai-box">
+<div class="ai-header">
 
-<h2>🤖 EduPulse AI</h2>
+<h2>🤖 AI-навигатор</h2>
 
 <p>
-Расскажи о своих интересах, и мы подберём подходящие мероприятия.
+Ответь на несколько вопросов.
+Мы подберём мероприятия и следующий шаг для твоего портфолио.
 </p>
 
 </div>
+
 
 <div class="question">
 
@@ -396,23 +620,28 @@ button {
 
 <div class="options">
 
-<button class="option" onclick="selectOption(this,'math')">
+<button class="option"
+onclick="chooseDirection(this,'math')">
 📐 Математика
 </button>
 
-<button class="option" onclick="selectOption(this,'it')">
+<button class="option"
+onclick="chooseDirection(this,'it')">
 💻 IT
 </button>
 
-<button class="option" onclick="selectOption(this,'business')">
+<button class="option"
+onclick="chooseDirection(this,'business')">
 💼 Бизнес
 </button>
 
-<button class="option" onclick="selectOption(this,'design')">
+<button class="option"
+onclick="chooseDirection(this,'design')">
 🎨 Дизайн
 </button>
 
-<button class="option" onclick="selectOption(this,'science')">
+<button class="option"
+onclick="chooseDirection(this,'science')">
 🔬 Наука
 </button>
 
@@ -423,19 +652,22 @@ button {
 
 <div class="question">
 
-<h3>2. Для чего ты ищешь мероприятия?</h3>
+<h3>2. Какая у тебя цель?</h3>
 
 <div class="options">
 
-<button class="option goal" onclick="selectGoal(this,'portfolio')">
-🎓 Улучшить портфолио
+<button class="option goal"
+onclick="chooseGoal(this,'portfolio')">
+🎓 Сильное портфолио
 </button>
 
-<button class="option goal" onclick="selectGoal(this,'experience')">
+<button class="option goal"
+onclick="chooseGoal(this,'experience')">
 🚀 Получить опыт
 </button>
 
-<button class="option goal" onclick="selectGoal(this,'team')">
+<button class="option goal"
+onclick="chooseGoal(this,'team')">
 👥 Найти команду
 </button>
 
@@ -443,43 +675,226 @@ button {
 
 </div>
 
-<button class="primary" onclick="getRecommendations()">
-✨ Подобрать для меня
+
+<button class="primary"
+onclick="recommend()">
+
+✨ Построить мою траекторию
+
 </button>
 
-<div id="aiResult" class="ai-result"></div>
+
+<div id="aiResult"></div>
 
 </div>
-</div>
+</section>
 
 
-<!-- FAVORITES -->
+<!-- ================= PORTFOLIO ================= -->
 
-<div id="favorites" class="page">
+<section id="portfolio" class="page">
 
 <div class="container">
 
-<h1>Мои мероприятия ❤️</h1>
+<h1>🎓 Моё портфолио</h1>
 
 <p class="subtitle">
-Сохранённые олимпиады и конкурсы
+Твои достижения в одном месте
+</p>
+
+
+<div class="progress-card">
+
+<h3>Готовность портфолио</h3>
+
+<div class="progress">
+<div></div>
+</div>
+
+<b>62%</b>
+
+<p style="color:#777;margin-top:7px">
+Добавь ещё 2 достижения, чтобы усилить профиль.
+</p>
+
+</div>
+
+
+<div class="portfolio-grid">
+
+<div class="portfolio-item">
+<b>3</b>
+<span>🏆 Олимпиады</span>
+</div>
+
+<div class="portfolio-item">
+<b>2</b>
+<span>🔬 Проекты</span>
+</div>
+
+<div class="portfolio-item">
+<b>1</b>
+<span>🎤 Дебаты</span>
+</div>
+
+<div class="portfolio-item">
+<b>4</b>
+<span>📜 Сертификаты</span>
+</div>
+
+</div>
+
+
+<div class="card" style="margin-top:15px">
+
+<h3>💡 Следующий шаг</h3>
+
+<p class="info">
+Попробуй принять участие в научном конкурсе
+или IT-хакатоне.
+</p>
+
+<button
+class="primary"
+style="margin-top:12px"
+onclick="showPage('home')">
+
+Найти мероприятие
+
+</button>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- ================= TEAM ================= -->
+
+<section id="team" class="page">
+
+<div class="container">
+
+<h1>👥 Найти команду</h1>
+
+<p class="subtitle">
+Найди школьников с похожими интересами.
+</p>
+
+
+<div class="team-card">
+
+<div class="team-title">
+💻 Kazakhstan IT Hackathon
+</div>
+
+<div class="members">
+
+Нужны:
+
+<br>
+🎨 Дизайнер
+<br>
+📊 Аналитик
+
+</div>
+
+<button
+class="primary"
+onclick="joinTeam()">
+
+Присоединиться
+
+</button>
+
+</div>
+
+
+<div class="team-card">
+
+<div class="team-title">
+🚀 Startup Challenge
+</div>
+
+<div class="members">
+
+Нужны:
+
+<br>
+💻 Программист
+<br>
+🎤 Спикер
+
+</div>
+
+<button
+class="primary"
+onclick="joinTeam()">
+
+Присоединиться
+
+</button>
+
+</div>
+
+
+<div class="team-card">
+
+<div class="team-title">
+🎤 Debate Cup
+</div>
+
+<div class="members">
+
+Нужен:
+
+<br>
+🗣️ Участник команды
+
+</div>
+
+<button
+class="primary"
+onclick="joinTeam()">
+
+Присоединиться
+
+</button>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- ================= FAVORITES ================= -->
+
+<section id="favorites" class="page">
+
+<div class="container">
+
+<h1>❤️ Мои мероприятия</h1>
+
+<p class="subtitle">
+То, что ты сохранил
 </p>
 
 <div id="favoriteEvents"></div>
 
 </div>
-</div>
+</section>
 
 
 <!-- MODAL -->
 
-<div id="modal" class="modal">
+<div class="modal" id="modal">
 
-<div class="modal-content">
+<div class="modal-box">
 
-<button class="close" onclick="closeModal()">×</button>
+<button class="close"
+onclick="closeModal()">×</button>
 
-<div id="modalBody"></div>
+<div id="modalContent"></div>
 
 </div>
 
@@ -488,27 +903,58 @@ button {
 
 <!-- NAVIGATION -->
 
-<div class="bottom-nav">
+<nav class="nav">
 
-<button class="nav-btn active" onclick="showPage('home',this)">
+<button class="active"
+onclick="navigate(this,'home')">
+
 <div>🏠</div>
-Лента
+Главная
+
 </button>
 
-<button class="nav-btn" onclick="showPage('ai',this)">
+
+<button
+onclick="navigate(this,'ai')">
+
 <div>🤖</div>
 AI
+
 </button>
 
-<button class="nav-btn" onclick="showPage('favorites',this)">
+
+<button
+onclick="navigate(this,'team')">
+
+<div>👥</div>
+Команда
+
+</button>
+
+
+<button
+onclick="navigate(this,'portfolio')">
+
+<div>🎓</div>
+Портфолио
+
+</button>
+
+
+<button
+onclick="navigate(this,'favorites')">
+
 <div>❤️</div>
 Мои
+
 </button>
 
-</div>
+</nav>
 
 
 <script>
+
+/* ================= DATA ================= */
 
 const events = [
 
@@ -516,184 +962,199 @@ const events = [
 id:1,
 title:"Республиканская олимпиада по математике",
 type:"Олимпиада",
-date:"25 сентября 2026",
+date:"25 сентября",
+days:2,
 deadline:"23 сентября",
 direction:"math",
 level:"Республика",
 portfolio:"Высокая",
-description:"Соревнование для школьников, интересующихся математикой. Участники решают задачи повышенной сложности."
+description:"Олимпиада для школьников, интересующихся математикой."
 },
 
 {
 id:2,
 title:"Math Challenge",
 type:"Олимпиада",
-date:"30 сентября 2026",
+date:"30 сентября",
+days:7,
 deadline:"28 сентября",
 direction:"math",
 level:"Международный",
 portfolio:"Высокая",
-description:"Математический конкурс для школьников. Хороший вариант для проверки своих знаний и пополнения портфолио."
+description:"Математический конкурс для школьников."
 },
 
 {
 id:3,
 title:"NIS Debate Cup",
 type:"Дебаты",
-date:"28 сентября 2026",
+date:"28 сентября",
+days:5,
 deadline:"25 сентября",
 direction:"business",
 level:"Республиканский",
 portfolio:"Высокая",
-description:"Командный дебатный турнир. Помогает развивать аргументацию, публичные выступления и командную работу."
+description:"Командный турнир по дебатам."
 },
 
 {
 id:4,
 title:"Kazakhstan IT Hackathon",
 type:"Проект",
-date:"5 октября 2026",
+date:"5 октября",
+days:12,
 deadline:"1 октября",
 direction:"it",
 level:"Республика",
 portfolio:"Высокая",
-description:"Хакатон для школьников. Участники создают собственные цифровые проекты."
+description:"Школьный хакатон для создания цифровых проектов."
 },
 
 {
 id:5,
 title:"Young Scientists Competition",
 type:"Конкурс",
-date:"10 октября 2026",
+date:"10 октября",
+days:17,
 deadline:"5 октября",
 direction:"science",
 level:"Международный",
 portfolio:"Высокая",
-description:"Научный конкурс для школьников. Можно представить собственное исследование или проект."
+description:"Научный конкурс для школьников."
 },
 
 {
 id:6,
 title:"School Design Challenge",
 type:"Конкурс",
-date:"12 октября 2026",
+date:"12 октября",
+days:19,
 deadline:"8 октября",
 direction:"design",
-level:"Республиканский",
+level:"Республика",
 portfolio:"Средняя",
-description:"Конкурс дизайнерских работ для школьников."
+description:"Конкурс дизайнерских работ."
 },
 
 {
 id:7,
 title:"Startup Challenge",
 type:"Проект",
-date:"15 октября 2026",
+date:"15 октября",
+days:22,
 deadline:"10 октября",
 direction:"business",
 level:"Республика",
 portfolio:"Высокая",
-description:"Командный конкурс стартапов. Участники представляют бизнес-идею и прототип."
+description:"Конкурс бизнес-идей и стартапов."
 }
 
 ];
 
 
-let currentFilter = "Все";
-
-let selectedDirection = null;
-let selectedGoal = null;
-
-
-function renderEvents() {
-
-const container = document.getElementById("events");
-
-const search =
-document.getElementById("search").value.toLowerCase();
-
-let filtered = events.filter(event => {
-
-const matchesFilter =
-currentFilter === "Все" ||
-event.type === currentFilter;
-
-const matchesSearch =
-event.title.toLowerCase().includes(search);
-
-return matchesFilter && matchesSearch;
-
-});
+let filter="Все";
+let direction=null;
+let goal=null;
 
 
-if(filtered.length === 0){
+/* ================= NAVIGATION ================= */
 
-container.innerHTML =
-`<div class="empty">
-🔎 Ничего не найдено
-</div>`;
+function navigate(button,page){
 
-return;
+document.querySelectorAll(".nav button")
+.forEach(b=>b.classList.remove("active"));
+
+button.classList.add("active");
+
+showPage(page);
 
 }
 
 
-container.innerHTML = filtered.map(createCard).join("");
+function showPage(page){
+
+document.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
+
+document.getElementById(page)
+.classList.add("active");
+
+window.scrollTo(0,0);
+
+if(page==="favorites"){
+renderFavorites();
+}
 
 }
 
 
-function createCard(event) {
+/* ================= EVENTS ================= */
 
-const isFavorite =
-getFavorites().includes(event.id);
+function createCard(e){
+
+let saved=getFavorites().includes(e.id);
 
 return `
 
 <div class="card">
 
-<div class="card-top">
+<div class="card-head">
 
 <div>
 
 <span class="type">
-${event.type}
+${e.type}
 </span>
 
-<h3>${event.title}</h3>
+<h3>${e.title}</h3>
 
 </div>
 
 <button
-class="favorite"
-onclick="toggleFavorite(${event.id})">
+class="heart"
+onclick="toggleFavorite(${e.id})">
 
-${isFavorite ? "❤️" : "♡"}
+${saved ? "❤️":"♡"}
 
 </button>
 
 </div>
 
+
 <div class="info">
 
-📅 ${event.date}<br>
-
-⏳ Дедлайн: ${event.deadline}<br>
-
-🏆 Уровень: ${event.level}
+📅 ${e.date}<br>
+⏳ Дедлайн: ${e.deadline}<br>
+🏆 ${e.level}
 
 </div>
+
+
+<div class="tags">
+
+<span class="tag">
+🎓 Портфолио: ${e.portfolio}
+</span>
+
+<span class="tag">
+👤 Школьники
+</span>
+
+</div>
+
 
 <div class="portfolio">
 
-🎓 Для портфолио: <b>${event.portfolio}</b>
+💡 Подходит для портфолио: <b>${e.portfolio}</b>
+
 </div>
+
 
 <div class="buttons">
 
 <button
 class="primary"
-onclick="openEvent(${event.id})">
+onclick="openEvent(${e.id})">
 
 Подробнее
 
@@ -701,7 +1162,7 @@ onclick="openEvent(${event.id})">
 
 <button
 class="secondary"
-onclick="addCalendar('${event.title}','${event.date}')">
+onclick="addCalendar('${e.title}')">
 
 📅
 
@@ -716,25 +1177,69 @@ onclick="addCalendar('${event.title}','${event.date}')">
 }
 
 
-function setFilter(filter,button){
+function renderEvents(){
 
-currentFilter = filter;
+let search=
+document.getElementById("search").value.toLowerCase();
 
-document
-.querySelectorAll(".filter")
+let filtered=events.filter(e=>{
+
+let f=
+filter==="Все" || e.type===filter;
+
+let s=
+e.title.toLowerCase().includes(search);
+
+return f && s;
+
+});
+
+document.getElementById("events").innerHTML=
+filtered.length
+? filtered.map(createCard).join("")
+: `<div class="empty">🔎 Ничего не найдено</div>`;
+
+}
+
+
+function renderDeadlines(){
+
+let nearest=events
+.filter(e=>e.days<=12)
+.sort((a,b)=>a.days-b.days)
+.slice(0,3);
+
+document.getElementById("deadlines").innerHTML=
+nearest.map(e=>createCard(e)).join("");
+
+}
+
+
+function setFilter(value,button){
+
+filter=value;
+
+if(button){
+
+document.querySelectorAll(".filter")
 .forEach(x=>x.classList.remove("active"));
 
 button.classList.add("active");
+
+}
 
 renderEvents();
 
 }
 
 
+/* ================= FAVORITES ================= */
+
 function getFavorites(){
 
 return JSON.parse(
-localStorage.getItem("edupulse_favorites") || "[]"
+localStorage.getItem("edupulse")
+||"[]"
 );
 
 }
@@ -742,25 +1247,21 @@ localStorage.getItem("edupulse_favorites") || "[]"
 
 function toggleFavorite(id){
 
-let favorites = getFavorites();
+let list=getFavorites();
 
-if(favorites.includes(id)){
-
-favorites =
-favorites.filter(x=>x !== id);
-
+if(list.includes(id)){
+list=list.filter(x=>x!==id);
 }else{
-
-favorites.push(id);
-
+list.push(id);
 }
 
 localStorage.setItem(
-"edupulse_favorites",
-JSON.stringify(favorites)
+"edupulse",
+JSON.stringify(list)
 );
 
 renderEvents();
+renderDeadlines();
 renderFavorites();
 
 }
@@ -768,26 +1269,30 @@ renderFavorites();
 
 function renderFavorites(){
 
-const container =
+let list=getFavorites();
+
+let saved=
+events.filter(e=>list.includes(e.id));
+
+let box=
 document.getElementById("favoriteEvents");
 
-const favorites = getFavorites();
+if(!saved.length){
 
-const saved =
-events.filter(e=>favorites.includes(e.id));
-
-
-if(saved.length === 0){
-
-container.innerHTML = `
+box.innerHTML=`
 
 <div class="empty">
 
+<div style="font-size:45px">
 ❤️
+</div>
 
-<h3>Пока ничего нет</h3>
+<h3>Здесь пока пусто</h3>
 
-<p>Сохрани интересные мероприятия из ленты.</p>
+<p>
+Сохраняй интересные мероприятия,
+чтобы не потерять их.
+</p>
 
 </div>
 
@@ -797,48 +1302,48 @@ return;
 
 }
 
-
-container.innerHTML =
+box.innerHTML=
 saved.map(createCard).join("");
 
 }
 
 
+/* ================= EVENT MODAL ================= */
+
 function openEvent(id){
 
-const event =
-events.find(e=>e.id === id);
+let e=events.find(x=>x.id===id);
 
-document.getElementById("modalBody").innerHTML = `
+document.getElementById("modalContent").innerHTML=`
 
-<span class="type">${event.type}</span>
+<span class="type">${e.type}</span>
 
-<h2>${event.title}</h2>
+<h2>${e.title}</h2>
 
-<p>
-📅 <b>Дата:</b> ${event.date}
-</p>
+<p>📅 <b>Дата:</b> ${e.date}</p>
 
-<p>
-⏳ <b>Дедлайн:</b> ${event.deadline}
-</p>
+<p>⏳ <b>Дедлайн:</b> ${e.deadline}</p>
 
-<p>
-🏆 <b>Уровень:</b> ${event.level}
-</p>
+<p>🏆 <b>Уровень:</b> ${e.level}</p>
 
-<p>
-🎓 <b>Польза для портфолио:</b>
-${event.portfolio}
-</p>
+<p>🎓 <b>Портфолио:</b> ${e.portfolio}</p>
 
-<p>
-${event.description}
-</p>
+<p>${e.description}</p>
+
+<div class="portfolio">
+
+🤖 <b>Почему это может быть полезно?</b><br><br>
+
+Мероприятие соответствует выбранному
+направлению и может стать одним из элементов
+образовательного портфолио.
+
+</div>
 
 <button
 class="primary"
-onclick="toggleFavorite(${event.id});closeModal();">
+style="margin-top:15px"
+onclick="toggleFavorite(${e.id});closeModal()">
 
 ❤️ Сохранить
 
@@ -862,73 +1367,46 @@ document
 }
 
 
-function showPage(page,button){
+/* ================= AI ================= */
 
-document
-.querySelectorAll(".page")
-.forEach(p=>p.classList.remove("active"));
+function chooseDirection(button,value){
 
-document
-.getElementById(page)
-.classList.add("active");
-
-document
-.querySelectorAll(".nav-btn")
-.forEach(b=>b.classList.remove("active"));
-
-button.classList.add("active");
-
-if(page === "favorites"){
-renderFavorites();
-}
-
-}
-
-
-function selectOption(button,direction){
-
-document
-.querySelectorAll(".options .option")
-.forEach(b=>{
-
-if(!b.classList.contains("goal"))
-b.classList.remove("selected");
-
+document.querySelectorAll(".options .option")
+.forEach(x=>{
+if(!x.classList.contains("goal"))
+x.classList.remove("selected");
 });
 
 button.classList.add("selected");
 
-selectedDirection = direction;
+direction=value;
 
 }
 
 
-function selectGoal(button,goal){
+function chooseGoal(button,value){
 
-document
-.querySelectorAll(".goal")
-.forEach(b=>b.classList.remove("selected"));
+document.querySelectorAll(".goal")
+.forEach(x=>x.classList.remove("selected"));
 
 button.classList.add("selected");
 
-selectedGoal = goal;
+goal=value;
 
 }
 
 
-function getRecommendations(){
+function recommend(){
 
-const result =
+let result=
 document.getElementById("aiResult");
 
-if(!selectedDirection){
+if(!direction){
 
-result.innerHTML = `
+result.innerHTML=`
 
 <div class="card">
-
-⚠️ Сначала выбери интересующее направление.
-
+⚠️ Выбери направление.
 </div>
 
 `;
@@ -938,70 +1416,96 @@ return;
 }
 
 
-let recommended =
-events.filter(e=>e.direction === selectedDirection);
+let selected=
+events.filter(e=>e.direction===direction);
 
 
-if(selectedGoal === "portfolio"){
+if(goal==="portfolio"){
 
-recommended =
-recommended.filter(
-e=>e.portfolio === "Высокая"
-);
+selected=
+selected.filter(e=>e.portfolio==="Высокая");
 
 }
 
 
-if(recommended.length === 0){
+let directionNames={
+math:"математикой",
+it:"IT",
+business:"бизнесом",
+design:"дизайном",
+science:"наукой"
+};
 
-result.innerHTML = `
+
+result.innerHTML=`
 
 <div class="card">
 
-😔 Пока нет подходящих мероприятий.
+<h2>🎯 Твоя траектория</h2>
 
-</div>
+<p class="info">
 
-`;
-
-return;
-
-}
-
-
-result.innerHTML = `
-
-<h2 style="margin:20px 0 12px">
-🎯 Подходящие тебе мероприятия
-</h2>
-
-<p style="color:#666;margin-bottom:15px">
-
-AI подобрал мероприятия на основе твоих интересов.
+Ты выбрал направление:
+<b>${directionNames[direction]}</b>.
 
 </p>
 
-${recommended.map(createCard).join("")}
+<div class="portfolio">
+
+<b>Шаг 1</b><br>
+Выбери подходящее мероприятие
+
+<br><br>
+
+<b>Шаг 2</b><br>
+Участвуй и получи результат
+
+<br><br>
+
+<b>Шаг 3</b><br>
+Добавь достижение в портфолио
+
+</div>
+
+</div>
+
+<h2 style="margin:20px 0 12px">
+✨ Рекомендации
+</h2>
+
+${selected.map(createCard).join("")}
 
 `;
 
 }
 
 
-function addCalendar(title,date){
+/* ================= TEAM ================= */
+
+function joinTeam(){
 
 alert(
-`📅 "${title}" добавлено в календарь!
-
-Дата: ${date}
-
-В полноценной версии здесь будет автоматическое добавление в Google Calendar / Apple Calendar.`
+"✅ Заявка отправлена!\n\nВ полной версии участники смогут связаться друг с другом через чат."
 );
 
 }
 
 
+/* ================= CALENDAR ================= */
+
+function addCalendar(title){
+
+alert(
+`📅 ${title}\n\nМероприятие добавлено в календарь.\n\nВ полной версии здесь будет интеграция с Google Calendar / Apple Calendar.`
+);
+
+}
+
+
+/* ================= START ================= */
+
 renderEvents();
+renderDeadlines();
 renderFavorites();
 
 </script>
