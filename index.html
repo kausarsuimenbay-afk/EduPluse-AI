@@ -2,513 +2,998 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>EduPulse AI</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+ --bg:#f5f6fa;
+ --card:#fff;
+ --text:#151622;
+ --muted:#737683;
+ --accent:#635bff;
+ --accent2:#8b84ff;
+ --line:#e8e8ef;
+ --green:#20a56b;
+ --orange:#ed8b32;
+ --red:#e74d5d;
 }
 
 body{
-    font-family:Inter,Arial,sans-serif;
-    background:#f6f7fb;
-    color:#171927;
-    padding-bottom:90px;
+ font-family:Inter,Arial,sans-serif;
+ background:var(--bg);
+ color:var(--text);
+ padding-bottom:90px;
 }
 
 button,input{
-    font:inherit;
+ font:inherit;
 }
 
-button{
-    cursor:pointer;
-}
+button{cursor:pointer}
 
-.header{
-    background:white;
-    padding:18px 20px;
-    position:sticky;
-    top:0;
-    z-index:20;
-    border-bottom:1px solid #eee;
+header{
+ height:66px;
+ background:rgba(255,255,255,.94);
+ backdrop-filter:blur(15px);
+ border-bottom:1px solid var(--line);
+ position:sticky;
+ top:0;
+ z-index:50;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 22px;
 }
 
 .logo{
-    font-size:22px;
-    font-weight:800;
+ font-size:21px;
+ font-weight:900;
 }
 
-.logo span{
-    color:#6c63ff;
+.logo span{color:var(--accent)}
+
+.profile-mini{
+ width:38px;
+ height:38px;
+ border-radius:50%;
+ background:#eeeefe;
+ color:var(--accent);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-weight:bold;
+ cursor:pointer;
 }
 
 .container{
-    max-width:900px;
-    margin:auto;
-    padding:20px;
+ width:min(920px,100%);
+ margin:auto;
+ padding:20px;
 }
 
-.page{
-    display:none;
-}
-
-.page.active{
-    display:block;
-}
+.page{display:none}
+.page.active{display:block}
 
 h1{
-    font-size:28px;
-    margin-bottom:7px;
+ font-size:29px;
+ letter-spacing:-.5px;
 }
 
-.subtitle{
-    color:#777;
-    margin-bottom:20px;
+h2{
+ font-size:21px;
+}
+
+.muted{
+ color:var(--muted);
+ line-height:1.55;
+}
+
+.section-title{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin:25px 0 13px;
+}
+
+.link{
+ color:var(--accent);
+ font-size:13px;
+ cursor:pointer;
+}
+
+/* ONBOARDING */
+
+.onboarding{
+ position:fixed;
+ inset:0;
+ z-index:1000;
+ background:#fff;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:20px;
+}
+
+.onboarding.hidden{display:none}
+
+.onboard-box{
+ width:min(500px,100%);
+}
+
+.ob-logo{
+ font-size:28px;
+ font-weight:900;
+ margin-bottom:40px;
+}
+
+.ob-logo span{color:var(--accent)}
+
+.ob-step{
+ display:none;
+}
+
+.ob-step.active{
+ display:block;
+}
+
+.ob-step h1{
+ margin-bottom:10px;
+}
+
+.ob-step>p{
+ color:var(--muted);
+ margin-bottom:25px;
+ line-height:1.5;
+}
+
+.choice-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+ margin-bottom:20px;
+}
+
+.choice{
+ background:#fff;
+ border:1px solid var(--line);
+ padding:16px;
+ border-radius:15px;
+ text-align:left;
+}
+
+.choice.selected{
+ border-color:var(--accent);
+ background:#f0efff;
+ color:var(--accent);
+}
+
+.continue{
+ width:100%;
+ border:0;
+ background:var(--accent);
+ color:#fff;
+ padding:15px;
+ border-radius:14px;
+ font-weight:bold;
+}
+
+.ob-progress{
+ height:5px;
+ background:#eee;
+ border-radius:10px;
+ margin-bottom:30px;
+ overflow:hidden;
+}
+
+.ob-progress div{
+ height:100%;
+ background:var(--accent);
+ width:33%;
+ transition:.3s;
 }
 
 /* HERO */
 
 .hero{
-    background:linear-gradient(135deg,#6158ff,#8b83ff);
-    color:white;
-    padding:25px;
-    border-radius:25px;
-    margin-bottom:20px;
-    box-shadow:0 10px 30px rgba(108,99,255,.2);
+ background:linear-gradient(135deg,#5f57f6,#8b84ff);
+ color:#fff;
+ border-radius:27px;
+ padding:25px;
+ position:relative;
+ overflow:hidden;
+ box-shadow:0 15px 35px rgba(99,91,255,.2);
+}
+
+.hero:after{
+ content:"";
+ width:180px;
+ height:180px;
+ border-radius:50%;
+ background:rgba(255,255,255,.08);
+ position:absolute;
+ right:-60px;
+ top:-60px;
 }
 
 .hero small{
-    opacity:.85;
+ opacity:.8;
 }
 
 .hero h1{
-    margin:7px 0;
+ margin:7px 0;
+ position:relative;
+ z-index:1;
 }
 
 .hero p{
-    opacity:.9;
-    line-height:1.5;
+ opacity:.88;
+ max-width:580px;
+ line-height:1.55;
+ position:relative;
+ z-index:1;
 }
 
-.hero button{
-    margin-top:18px;
-    background:white;
-    color:#5d55e9;
-    border:0;
-    padding:12px 18px;
-    border-radius:12px;
-    font-weight:bold;
+.hero-actions{
+ display:flex;
+ gap:9px;
+ margin-top:20px;
+ position:relative;
+ z-index:1;
+}
+
+.white-btn{
+ border:0;
+ background:#fff;
+ color:var(--accent);
+ padding:12px 16px;
+ border-radius:12px;
+ font-weight:bold;
+}
+
+/* PROGRESS */
+
+.progress-card{
+ background:var(--card);
+ padding:19px;
+ border-radius:20px;
+ margin-top:14px;
+ border:1px solid var(--line);
+}
+
+.progress-head{
+ display:flex;
+ justify-content:space-between;
+ margin-bottom:9px;
+}
+
+.progress{
+ height:9px;
+ background:#ececf2;
+ border-radius:10px;
+ overflow:hidden;
+}
+
+.progress>div{
+ height:100%;
+ width:72%;
+ background:linear-gradient(90deg,var(--accent),var(--accent2));
+}
+
+.progress-note{
+ margin-top:10px;
+ font-size:12px;
+ color:var(--muted);
 }
 
 /* STATS */
 
 .stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    margin-bottom:22px;
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+ margin-top:15px;
 }
 
 .stat{
-    background:white;
-    padding:15px;
-    border-radius:17px;
-    text-align:center;
+ background:#fff;
+ border:1px solid var(--line);
+ padding:15px 8px;
+ border-radius:18px;
+ text-align:center;
 }
 
 .stat b{
-    display:block;
-    font-size:22px;
-    margin-bottom:4px;
+ display:block;
+ font-size:22px;
 }
 
 .stat span{
-    color:#777;
-    font-size:12px;
-}
-
-/* SEARCH */
-
-.search{
-    width:100%;
-    border:1px solid #ddd;
-    background:white;
-    padding:14px 16px;
-    border-radius:14px;
-    outline:none;
-    margin-bottom:12px;
-}
-
-.filters{
-    display:flex;
-    gap:8px;
-    overflow-x:auto;
-    margin-bottom:18px;
-}
-
-.filter{
-    border:0;
-    background:white;
-    padding:9px 14px;
-    border-radius:20px;
-    white-space:nowrap;
-}
-
-.filter.active{
-    background:#6c63ff;
-    color:white;
+ color:var(--muted);
+ font-size:11px;
 }
 
 /* DEADLINE */
 
-.deadline-title{
-    display:flex;
-    justify-content:space-between;
-    margin:20px 0 12px;
+.deadline{
+ background:#fff;
+ border:1px solid var(--line);
+ border-radius:18px;
+ padding:16px;
+ margin-bottom:10px;
+ display:flex;
+ align-items:center;
+ gap:13px;
 }
 
-.deadline-title a{
-    color:#6c63ff;
-    font-size:13px;
+.deadline-icon{
+ width:44px;
+ height:44px;
+ border-radius:13px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ background:#fff0f1;
 }
 
-/* CARD */
-
-.card{
-    background:white;
-    border-radius:20px;
-    padding:18px;
-    margin-bottom:13px;
-    box-shadow:0 5px 20px rgba(0,0,0,.04);
+.deadline-main{
+ flex:1;
 }
 
-.card-head{
-    display:flex;
-    justify-content:space-between;
-    gap:12px;
+.deadline-main b{
+ font-size:14px;
+ display:block;
 }
 
-.type{
-    display:inline-block;
-    background:#eeedff;
-    color:#5c54df;
-    padding:5px 9px;
-    border-radius:8px;
-    font-size:11px;
-    margin-bottom:9px;
+.deadline-main span{
+ color:var(--muted);
+ font-size:12px;
 }
 
-.card h3{
-    font-size:17px;
-    line-height:1.3;
+.deadline-time{
+ color:var(--red);
+ font-size:12px;
+ font-weight:bold;
+}
+
+/* EVENT */
+
+.search{
+ width:100%;
+ border:1px solid var(--line);
+ background:#fff;
+ padding:14px 16px;
+ border-radius:14px;
+ outline:none;
+}
+
+.filters{
+ display:flex;
+ gap:7px;
+ overflow-x:auto;
+ padding:10px 0 4px;
+}
+
+.filter{
+ border:0;
+ background:#fff;
+ padding:9px 14px;
+ border-radius:20px;
+ white-space:nowrap;
+ color:#555;
+}
+
+.filter.active{
+ background:var(--accent);
+ color:#fff;
+}
+
+.event{
+ background:#fff;
+ border:1px solid var(--line);
+ padding:18px;
+ border-radius:20px;
+ margin-bottom:12px;
+ transition:.2s;
+}
+
+.event:hover{
+ transform:translateY(-2px);
+ box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+.event-top{
+ display:flex;
+ justify-content:space-between;
+ gap:12px;
+}
+
+.event-type{
+ color:var(--accent);
+ background:#f0efff;
+ padding:5px 9px;
+ border-radius:8px;
+ font-size:10px;
+ display:inline-block;
+ margin-bottom:8px;
+}
+
+.event h3{
+ font-size:17px;
+ line-height:1.35;
 }
 
 .heart{
-    border:0;
-    background:none;
-    font-size:24px;
-    height:35px;
+ border:0;
+ background:none;
+ font-size:23px;
 }
 
-.info{
-    color:#666;
-    font-size:13px;
-    line-height:1.7;
-    margin-top:10px;
+.event-info{
+ color:#676a76;
+ font-size:13px;
+ line-height:1.7;
+ margin-top:9px;
 }
 
-.tags{
-    display:flex;
-    gap:6px;
-    flex-wrap:wrap;
-    margin-top:12px;
+.match{
+ display:inline-flex;
+ align-items:center;
+ gap:5px;
+ margin-top:11px;
+ background:#eefaf5;
+ color:var(--green);
+ padding:7px 9px;
+ border-radius:9px;
+ font-size:11px;
+ font-weight:bold;
 }
 
-.tag{
-    background:#f1f2f6;
-    padding:5px 8px;
-    border-radius:7px;
-    font-size:11px;
-}
-
-.portfolio{
-    background:#f2f1ff;
-    color:#554ddd;
-    padding:10px;
-    border-radius:10px;
-    margin-top:12px;
-    font-size:12px;
-}
-
-.buttons{
-    display:flex;
-    gap:8px;
-    margin-top:14px;
+.event-actions{
+ display:flex;
+ gap:8px;
+ margin-top:14px;
 }
 
 .primary{
-    flex:1;
-    border:0;
-    background:#6c63ff;
-    color:white;
-    padding:12px;
-    border-radius:11px;
+ flex:1;
+ border:0;
+ background:var(--accent);
+ color:#fff;
+ padding:12px;
+ border-radius:11px;
+ font-weight:bold;
 }
 
 .secondary{
-    border:1px solid #ddd;
-    background:white;
-    padding:12px 14px;
-    border-radius:11px;
+ border:1px solid var(--line);
+ background:#fff;
+ padding:12px 14px;
+ border-radius:11px;
 }
 
 /* AI */
 
-.ai-header{
-    background:linear-gradient(135deg,#171927,#39374f);
-    color:white;
-    padding:24px;
-    border-radius:23px;
-    margin-bottom:16px;
+.ai-top{
+ background:#171824;
+ color:#fff;
+ padding:24px;
+ border-radius:24px;
 }
 
-.ai-header h2{
-    margin-bottom:8px;
-}
-
-.ai-header p{
-    opacity:.8;
-    line-height:1.5;
+.ai-top p{
+ color:#bbbcc7;
+ margin-top:8px;
+ line-height:1.5;
 }
 
 .question{
-    background:white;
-    padding:20px;
-    border-radius:19px;
-    margin-bottom:14px;
+ background:#fff;
+ padding:19px;
+ border-radius:19px;
+ border:1px solid var(--line);
+ margin-top:12px;
 }
 
 .question h3{
-    margin-bottom:15px;
-}
-
-.options{
-    display:grid;
-    gap:9px;
+ margin-bottom:14px;
+ font-size:16px;
 }
 
 .option{
-    border:1px solid #ddd;
-    background:white;
-    padding:13px;
-    border-radius:11px;
-    text-align:left;
+ display:block;
+ width:100%;
+ text-align:left;
+ background:#fff;
+ border:1px solid var(--line);
+ padding:13px;
+ border-radius:11px;
+ margin-top:8px;
 }
 
 .option.selected{
-    border-color:#6c63ff;
-    background:#f0efff;
+ border-color:var(--accent);
+ background:#f0efff;
+ color:var(--accent);
 }
 
-.ai-result{
-    margin-top:20px;
+.ai-chat{
+ margin-top:15px;
+}
+
+.ai-message{
+ background:#171824;
+ color:#fff;
+ padding:15px;
+ border-radius:17px 17px 17px 4px;
+ line-height:1.55;
+ font-size:14px;
+ margin-bottom:10px;
+}
+
+.user-message{
+ background:#eae9ff;
+ color:#353179;
+ padding:13px;
+ border-radius:17px 17px 4px 17px;
+ margin:0 0 10px auto;
+ width:fit-content;
+ max-width:90%;
+}
+
+.ai-input{
+ display:flex;
+ gap:8px;
+ margin-top:10px;
+}
+
+.ai-input input{
+ flex:1;
+ border:1px solid var(--line);
+ border-radius:12px;
+ padding:12px;
+ outline:none;
+}
+
+/* TRAJECTORY */
+
+.path{
+ position:relative;
+ margin-top:20px;
+}
+
+.path:before{
+ content:"";
+ position:absolute;
+ left:22px;
+ top:20px;
+ bottom:20px;
+ width:2px;
+ background:#ddd;
+}
+
+.path-item{
+ position:relative;
+ display:flex;
+ gap:15px;
+ margin-bottom:19px;
+}
+
+.path-dot{
+ width:46px;
+ height:46px;
+ min-width:46px;
+ border-radius:50%;
+ background:#fff;
+ border:3px solid #ddd;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ z-index:2;
+}
+
+.path-item.done .path-dot{
+ border-color:var(--green);
+ background:#eafaf3;
+}
+
+.path-item.current .path-dot{
+ border-color:var(--accent);
+ background:#f0efff;
+}
+
+.path-content{
+ background:#fff;
+ border:1px solid var(--line);
+ border-radius:16px;
+ padding:14px;
+ flex:1;
+}
+
+.path-content b{
+ display:block;
+ margin-bottom:4px;
+}
+
+.path-content span{
+ color:var(--muted);
+ font-size:12px;
+ line-height:1.5;
 }
 
 /* PORTFOLIO */
 
-.progress-card{
-    background:white;
-    padding:20px;
-    border-radius:20px;
-    margin-bottom:15px;
+.profile-card{
+ background:#171824;
+ color:#fff;
+ border-radius:24px;
+ padding:22px;
 }
 
-.progress{
-    height:10px;
-    background:#eee;
-    border-radius:10px;
-    overflow:hidden;
-    margin:12px 0;
+.avatar{
+ width:65px;
+ height:65px;
+ border-radius:50%;
+ background:#fff;
+ color:var(--accent);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:25px;
+ font-weight:bold;
+ margin-bottom:14px;
 }
 
-.progress div{
-    height:100%;
-    width:62%;
-    background:#6c63ff;
+.profile-card p{
+ color:#bbbcc7;
+ font-size:13px;
+ margin-top:4px;
 }
 
-.portfolio-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
+.port-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+ margin-top:15px;
 }
 
-.portfolio-item{
-    background:white;
-    padding:17px;
-    border-radius:17px;
+.port-stat{
+ background:#fff;
+ border:1px solid var(--line);
+ padding:17px;
+ border-radius:17px;
 }
 
-.portfolio-item b{
-    font-size:21px;
-    display:block;
-    margin-bottom:5px;
+.port-stat b{
+ display:block;
+ font-size:22px;
+ margin-bottom:4px;
 }
 
-.portfolio-item span{
-    color:#777;
-    font-size:12px;
+.port-stat span{
+ color:var(--muted);
+ font-size:12px;
 }
 
-/* TEAM */
-
-.team-card{
-    background:white;
-    padding:18px;
-    border-radius:19px;
-    margin-bottom:12px;
+.achievement{
+ background:#fff;
+ border:1px solid var(--line);
+ border-radius:17px;
+ padding:16px;
+ margin-top:10px;
+ display:flex;
+ gap:12px;
+ align-items:center;
 }
 
-.team-title{
-    font-weight:bold;
-    margin-bottom:7px;
+.achievement-icon{
+ width:43px;
+ height:43px;
+ background:#f0efff;
+ border-radius:12px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:21px;
+}
+
+/* COMMUNITY */
+
+.team{
+ background:#fff;
+ border:1px solid var(--line);
+ border-radius:20px;
+ padding:18px;
+ margin-top:12px;
+}
+
+.team h3{
+ margin-bottom:6px;
+}
+
+.team p{
+ color:var(--muted);
+ font-size:13px;
+ line-height:1.5;
 }
 
 .members{
-    color:#777;
-    font-size:13px;
-    line-height:1.6;
-    margin:10px 0;
+ display:flex;
+ gap:7px;
+ margin:13px 0;
+ flex-wrap:wrap;
+}
+
+.member{
+ background:#f3f3f7;
+ padding:7px 9px;
+ border-radius:9px;
+ font-size:11px;
+}
+
+.need{
+ color:#a86618;
+ background:#fff5e8;
+ padding:8px 10px;
+ border-radius:9px;
+ font-size:11px;
+ margin-bottom:12px;
+ display:inline-block;
 }
 
 /* NAV */
 
 .nav{
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    height:75px;
-    background:white;
-    border-top:1px solid #e5e5e5;
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-    z-index:50;
+ position:fixed;
+ left:0;
+ right:0;
+ bottom:0;
+ height:75px;
+ background:rgba(255,255,255,.96);
+ backdrop-filter:blur(15px);
+ border-top:1px solid var(--line);
+ z-index:100;
+ display:flex;
+ justify-content:space-around;
+ align-items:center;
 }
 
 .nav button{
-    border:0;
-    background:none;
-    color:#888;
-    font-size:11px;
+ border:0;
+ background:none;
+ color:#888;
+ font-size:10px;
 }
 
 .nav button div{
-    font-size:22px;
-    margin-bottom:3px;
+ font-size:21px;
+ margin-bottom:3px;
 }
 
 .nav button.active{
-    color:#6c63ff;
-    font-weight:bold;
+ color:var(--accent);
+ font-weight:bold;
 }
 
 /* MODAL */
 
 .modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.5);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:18px;
-    z-index:100;
+ display:none;
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.5);
+ z-index:500;
+ padding:18px;
+ align-items:center;
+ justify-content:center;
 }
 
-.modal.active{
-    display:flex;
+.modal.show{
+ display:flex;
 }
 
 .modal-box{
-    background:white;
-    max-width:500px;
-    width:100%;
-    max-height:90vh;
-    overflow:auto;
-    border-radius:23px;
-    padding:22px;
+ width:min(520px,100%);
+ max-height:90vh;
+ overflow:auto;
+ background:#fff;
+ border-radius:24px;
+ padding:22px;
 }
 
 .close{
-    float:right;
-    border:0;
-    background:none;
-    font-size:27px;
+ float:right;
+ border:0;
+ background:none;
+ font-size:28px;
 }
 
 .modal-box p{
-    color:#666;
-    line-height:1.6;
-    margin:12px 0;
+ color:var(--muted);
+ line-height:1.6;
+ margin:12px 0;
 }
 
-/* EMPTY */
-
 .empty{
-    text-align:center;
-    color:#777;
-    padding:45px 15px;
+ text-align:center;
+ color:var(--muted);
+ padding:50px 15px;
 }
 
 @media(max-width:600px){
-    .stats{
-        gap:7px;
-    }
-
-    .stat{
-        padding:12px 5px;
-    }
-
-    .stat b{
-        font-size:19px;
-    }
+ .container{padding:16px}
+ h1{font-size:25px}
+ .choice-grid{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
 
+
 <body>
 
-<header class="header">
-    <div class="logo">EduPulse <span>AI</span></div>
+<!-- ONBOARDING -->
+
+<div class="onboarding" id="onboarding">
+
+<div class="onboard-box">
+
+<div class="ob-logo">
+EduPulse <span>AI</span>
+</div>
+
+<div class="ob-progress">
+<div id="obProgress"></div>
+</div>
+
+
+<div class="ob-step active" id="ob1">
+
+<h1>Построим твой путь 🎓</h1>
+
+<p>
+Ответь на несколько вопросов, чтобы AI мог подобрать возможности именно для тебя.
+</p>
+
+<div class="choice-grid">
+
+<button class="choice" onclick="pick(this,'grade','8')">8 класс</button>
+<button class="choice" onclick="pick(this,'grade','9')">9 класс</button>
+<button class="choice" onclick="pick(this,'grade','10')">10 класс</button>
+<button class="choice" onclick="pick(this,'grade','11')">11 класс</button>
+
+</div>
+
+<button class="continue" onclick="nextOnboarding()">
+Продолжить →
+</button>
+
+</div>
+
+
+<div class="ob-step" id="ob2">
+
+<h1>Что тебе интересно?</h1>
+
+<p>
+Выбери направление, которое тебе нравится.
+</p>
+
+<div class="choice-grid">
+
+<button class="choice multi" onclick="toggleMulti(this,'math')">📐 Математика</button>
+<button class="choice multi" onclick="toggleMulti(this,'it')">💻 IT</button>
+<button class="choice multi" onclick="toggleMulti(this,'science')">🔬 Наука</button>
+<button class="choice multi" onclick="toggleMulti(this,'design')">🎨 Дизайн</button>
+<button class="choice multi" onclick="toggleMulti(this,'business')">💼 Бизнес</button>
+<button class="choice multi" onclick="toggleMulti(this,'debate')">🎤 Дебаты</button>
+
+</div>
+
+<button class="continue" onclick="nextOnboarding()">
+Продолжить →
+</button>
+
+</div>
+
+
+<div class="ob-step" id="ob3">
+
+<h1>Какая твоя цель?</h1>
+
+<p>
+EduPulse будет подбирать возможности с учётом твоей цели.
+</p>
+
+<div class="choice-grid">
+
+<button class="choice" onclick="pick(this,'goal','university')">
+🎓 Университет
+</button>
+
+<button class="choice" onclick="pick(this,'goal','portfolio')">
+🏆 Портфолио
+</button>
+
+<button class="choice" onclick="pick(this,'goal','experience')">
+🚀 Опыт
+</button>
+
+<button class="choice" onclick="pick(this,'goal','team')">
+👥 Команда
+</button>
+
+</div>
+
+<button class="continue" onclick="finishOnboarding()">
+Создать мой путь ✨
+</button>
+
+</div>
+
+</div>
+</div>
+
+
+<!-- HEADER -->
+
+<header>
+
+<div class="logo">
+EduPulse <span>AI</span>
+</div>
+
+<div class="profile-mini" onclick="showPage('profile')">
+A
+</div>
+
 </header>
 
 
-<!-- ================= HOME ================= -->
+<!-- HOME -->
 
-<section id="home" class="page active">
+<section class="page active" id="home">
 
 <div class="container">
 
 <div class="hero">
 
-<small>👋 Добро пожаловать</small>
+<small id="hello">Добро пожаловать 👋</small>
 
-<h1>Твои возможности уже здесь</h1>
+<h1>Твой путь уже начинается</h1>
 
 <p>
-AI помогает находить олимпиады, конкурсы и проекты,
-которые подходят именно тебе.
+AI помогает находить возможности,
+которые соответствуют твоим интересам,
+целям и уровню.
 </p>
 
-<button onclick="showPage('ai')">
-🤖 Подобрать для меня
+<div class="hero-actions">
+
+<button class="white-btn" onclick="showPage('ai')">
+🤖 Спросить AI
 </button>
+
+</div>
+
+</div>
+
+
+<div class="progress-card">
+
+<div class="progress-head">
+<b>🧭 Твоя траектория</b>
+<b>72%</b>
+</div>
+
+<div class="progress">
+<div></div>
+</div>
+
+<div class="progress-note">
+Следующий шаг: принять участие в профильном мероприятии.
+</div>
 
 </div>
 
@@ -516,41 +1001,53 @@ AI помогает находить олимпиады, конкурсы и п�
 <div class="stats">
 
 <div class="stat">
-<b>7</b>
-<span>мероприятий</span>
-</div>
-
-<div class="stat">
 <b>3</b>
-<span>дедлайна</span>
+<span>достижения</span>
 </div>
 
 <div class="stat">
-<b>62%</b>
-<span>портфолио</span>
+<b>2</b>
+<span>проекта</span>
+</div>
+
+<div class="stat">
+<b>5</b>
+<span>сохранено</span>
 </div>
 
 </div>
 
 
-<div class="deadline-title">
-
-<h2>⏰ Ближайшие дедлайны</h2>
-
-<a onclick="setFilter('Все')">
-Все
-</a>
-
+<div class="section-title">
+<h2>⚠️ Не пропусти</h2>
+<span class="link" onclick="showPage('events')">Все</span>
 </div>
-
 
 <div id="deadlines"></div>
 
 
-<h2 style="margin:25px 0 12px">
-🎯 Все возможности
-</h2>
+<div class="section-title">
+<h2>✨ Подобрано для тебя</h2>
+</div>
 
+<div id="recommended"></div>
+
+
+</div>
+</section>
+
+
+<!-- EVENTS -->
+
+<section class="page" id="events">
+
+<div class="container">
+
+<h1>Возможности</h1>
+
+<p class="muted">
+Олимпиады, конкурсы, проекты и дебаты.
+</p>
 
 <input
 class="search"
@@ -559,56 +1056,48 @@ placeholder="🔎 Найти мероприятие..."
 oninput="renderEvents()"
 >
 
-
 <div class="filters">
 
-<button class="filter active"
-onclick="setFilter('Все',this)">
+<button class="filter active" onclick="setFilter('Все',this)">
 Все
 </button>
 
-<button class="filter"
-onclick="setFilter('Олимпиада',this)">
+<button class="filter" onclick="setFilter('Олимпиада',this)">
 Олимпиады
 </button>
 
-<button class="filter"
-onclick="setFilter('Конкурс',this)">
+<button class="filter" onclick="setFilter('Конкурс',this)">
 Конкурсы
 </button>
 
-<button class="filter"
-onclick="setFilter('Дебаты',this)">
-Дебаты
+<button class="filter" onclick="setFilter('Проект',this)">
+Проекты
 </button>
 
-<button class="filter"
-onclick="setFilter('Проект',this)">
-Проекты
+<button class="filter" onclick="setFilter('Дебаты',this)">
+Дебаты
 </button>
 
 </div>
 
-
-<div id="events"></div>
+<div id="eventsList"></div>
 
 </div>
 </section>
 
 
-<!-- ================= AI ================= -->
+<!-- AI -->
 
-<section id="ai" class="page">
+<section class="page" id="ai">
 
 <div class="container">
 
-<div class="ai-header">
+<div class="ai-top">
 
-<h2>🤖 AI-навигатор</h2>
+<h1>🤖 EduPulse AI</h1>
 
 <p>
-Ответь на несколько вопросов.
-Мы подберём мероприятия и следующий шаг для твоего портфолио.
+Твой персональный навигатор по образовательным возможностям.
 </p>
 
 </div>
@@ -616,128 +1105,330 @@ onclick="setFilter('Проект',this)">
 
 <div class="question">
 
-<h3>1. Какое направление тебе интересно?</h3>
+<h3>Что ты хочешь получить?</h3>
 
-<div class="options">
-
-<button class="option"
-onclick="chooseDirection(this,'math')">
-📐 Математика
+<button class="option" onclick="aiChoose(this,'portfolio')">
+🎓 Усилить портфолио
 </button>
 
-<button class="option"
-onclick="chooseDirection(this,'it')">
-💻 IT
+<button class="option" onclick="aiChoose(this,'olymp')">
+🏆 Найти олимпиаду
 </button>
 
-<button class="option"
-onclick="chooseDirection(this,'business')">
-💼 Бизнес
+<button class="option" onclick="aiChoose(this,'project')">
+💻 Найти проект
 </button>
 
-<button class="option"
-onclick="chooseDirection(this,'design')">
-🎨 Дизайн
-</button>
-
-<button class="option"
-onclick="chooseDirection(this,'science')">
-🔬 Наука
-</button>
-
-</div>
-
-</div>
-
-
-<div class="question">
-
-<h3>2. Какая у тебя цель?</h3>
-
-<div class="options">
-
-<button class="option goal"
-onclick="chooseGoal(this,'portfolio')">
-🎓 Сильное портфолио
-</button>
-
-<button class="option goal"
-onclick="chooseGoal(this,'experience')">
-🚀 Получить опыт
-</button>
-
-<button class="option goal"
-onclick="chooseGoal(this,'team')">
+<button class="option" onclick="aiChoose(this,'team')">
 👥 Найти команду
 </button>
 
 </div>
 
+
+<div class="ai-chat" id="aiChat">
+
+<div class="ai-message">
+
+Привет! 👋 Я EduPulse AI.
+
+Я могу помочь найти мероприятие,
+проанализировать твой профиль или
+подсказать следующий шаг.
+
+Попробуй выбрать цель выше.
+
+</div>
+
 </div>
 
 
-<button class="primary"
-onclick="recommend()">
+<div class="ai-input">
 
-✨ Построить мою траекторию
+<input
+id="aiInput"
+placeholder="Например: что мне выбрать?"
+onkeydown="if(event.key==='Enter')askAI()"
+>
 
+<button class="primary" onclick="askAI()">
+→
 </button>
 
-
-<div id="aiResult"></div>
+</div>
 
 </div>
 </section>
 
 
-<!-- ================= PORTFOLIO ================= -->
+<!-- PATH -->
 
-<section id="portfolio" class="page">
+<section class="page" id="path">
 
 <div class="container">
 
-<h1>🎓 Моё портфолио</h1>
+<h1>🧭 Моя траектория</h1>
 
-<p class="subtitle">
-Твои достижения в одном месте
+<p class="muted">
+AI-путь от школьных возможностей к цели.
 </p>
 
 
-<div class="progress-card">
+<div class="path">
 
-<h3>Готовность портфолио</h3>
+<div class="path-item done">
 
-<div class="progress">
-<div></div>
+<div class="path-dot">✓</div>
+
+<div class="path-content">
+
+<b>Определить направление</b>
+
+<span>
+Профиль создан и интересы определены.
+</span>
+
 </div>
 
-<b>62%</b>
+</div>
 
-<p style="color:#777;margin-top:7px">
-Добавь ещё 2 достижения, чтобы усилить профиль.
+
+<div class="path-item done">
+
+<div class="path-dot">✓</div>
+
+<div class="path-content">
+
+<b>Первое достижение</b>
+
+<span>
+Добавь олимпиаду или конкурс в портфолио.
+</span>
+
+</div>
+
+</div>
+
+
+<div class="path-item current">
+
+<div class="path-dot">🎯</div>
+
+<div class="path-content">
+
+<b>Профильное мероприятие</b>
+
+<span>
+AI рекомендует принять участие в подходящей олимпиаде или проекте.
+</span>
+
+<button
+class="primary"
+style="margin-top:10px"
+onclick="showPage('events')">
+Найти
+</button>
+
+</div>
+
+</div>
+
+
+<div class="path-item">
+
+<div class="path-dot">🔬</div>
+
+<div class="path-content">
+
+<b>Исследовательский проект</b>
+
+<span>
+Создай собственный проект и добавь его в портфолио.
+</span>
+
+</div>
+
+</div>
+
+
+<div class="path-item">
+
+<div class="path-dot">🌎</div>
+
+<div class="path-content">
+
+<b>Международный опыт</b>
+
+<span>
+Следующий уровень - международные конкурсы и проекты.
+</span>
+
+</div>
+
+</div>
+
+
+<div class="path-item">
+
+<div class="path-dot">🎓</div>
+
+<div class="path-content">
+
+<b>Университет</b>
+
+<span>
+Все достижения собраны в одном портфолио.
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- COMMUNITY -->
+
+<section class="page" id="community">
+
+<div class="container">
+
+<h1>👥 Сообщество</h1>
+
+<p class="muted">
+Найди команду или партнёра для подготовки.
+</p>
+
+
+<div class="team">
+
+<h3>💻 Kazakhstan IT Hackathon</h3>
+
+<p>
+Команда создаёт приложение для школьников.
+</p>
+
+<div class="members">
+
+<span class="member">👨‍💻 Timur · Developer</span>
+<span class="member">🎨 Dana · Designer</span>
+<span class="member">📊 Amina · Analyst</span>
+
+</div>
+
+<span class="need">
+Ищут: 🎤 Speaker
+</span>
+
+<button class="primary" onclick="joinTeam()">
+Я подхожу
+</button>
+
+</div>
+
+
+<div class="team">
+
+<h3>🚀 Startup Challenge</h3>
+
+<p>
+Ищем участников для создания EdTech-проекта.
+</p>
+
+<div class="members">
+
+<span class="member">💻 Developer</span>
+<span class="member">🎨 Designer</span>
+
+</div>
+
+<span class="need">
+Ищут: 📊 Analyst
+</span>
+
+<button class="primary" onclick="joinTeam()">
+Я подхожу
+</button>
+
+</div>
+
+
+<div class="team">
+
+<h3>🎤 Debate Cup</h3>
+
+<p>
+Команда готовится к следующему турниру.
+</p>
+
+<div class="members">
+
+<span class="member">🗣️ Speaker</span>
+<span class="member">🧠 Researcher</span>
+
+</div>
+
+<span class="need">
+Ищут: 🗣️ Speaker
+</span>
+
+<button class="primary" onclick="joinTeam()">
+Я подхожу
+</button>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- PORTFOLIO -->
+
+<section class="page" id="portfolio">
+
+<div class="container">
+
+<h1>🎓 Портфолио</h1>
+
+<p class="muted">
+Твои достижения и проекты.
+</p>
+
+
+<div class="profile-card">
+
+<div class="avatar">A</div>
+
+<h2>Мой профиль</h2>
+
+<p id="profileInfo">
+9 класс · IT · Математика
 </p>
 
 </div>
 
 
-<div class="portfolio-grid">
+<div class="port-grid">
 
-<div class="portfolio-item">
+<div class="port-stat">
 <b>3</b>
-<span>🏆 Олимпиады</span>
+<span>🏆 Достижения</span>
 </div>
 
-<div class="portfolio-item">
+<div class="port-stat">
 <b>2</b>
 <span>🔬 Проекты</span>
 </div>
 
-<div class="portfolio-item">
+<div class="port-stat">
 <b>1</b>
 <span>🎤 Дебаты</span>
 </div>
 
-<div class="portfolio-item">
+<div class="port-stat">
 <b>4</b>
 <span>📜 Сертификаты</span>
 </div>
@@ -745,141 +1436,122 @@ onclick="recommend()">
 </div>
 
 
-<div class="card" style="margin-top:15px">
+<div class="section-title">
+<h2>🏆 Достижения</h2>
+</div>
 
-<h3>💡 Следующий шаг</h3>
 
-<p class="info">
-Попробуй принять участие в научном конкурсе
-или IT-хакатоне.
-</p>
+<div class="achievement">
+
+<div class="achievement-icon">🥇</div>
+
+<div>
+<b>Math Challenge</b>
+<div class="muted">
+2 место · 2026
+</div>
+</div>
+
+</div>
+
+
+<div class="achievement">
+
+<div class="achievement-icon">💻</div>
+
+<div>
+<b>School Hackathon</b>
+<div class="muted">
+Финалист · 2026
+</div>
+</div>
+
+</div>
+
+
+<div class="achievement">
+
+<div class="achievement-icon">🎤</div>
+
+<div>
+<b>Debate Cup</b>
+<div class="muted">
+Участник · 2026
+</div>
+</div>
+
+</div>
+
 
 <button
 class="primary"
-style="margin-top:12px"
-onclick="showPage('home')">
+style="margin-top:15px"
+onclick="generateCV()">
 
-Найти мероприятие
+📄 Создать CV
 
 </button>
-
-</div>
 
 </div>
 </section>
 
 
-<!-- ================= TEAM ================= -->
+<!-- PROFILE -->
 
-<section id="team" class="page">
-
-<div class="container">
-
-<h1>👥 Найти команду</h1>
-
-<p class="subtitle">
-Найди школьников с похожими интересами.
-</p>
-
-
-<div class="team-card">
-
-<div class="team-title">
-💻 Kazakhstan IT Hackathon
-</div>
-
-<div class="members">
-
-Нужны:
-
-<br>
-🎨 Дизайнер
-<br>
-📊 Аналитик
-
-</div>
-
-<button
-class="primary"
-onclick="joinTeam()">
-
-Присоединиться
-
-</button>
-
-</div>
-
-
-<div class="team-card">
-
-<div class="team-title">
-🚀 Startup Challenge
-</div>
-
-<div class="members">
-
-Нужны:
-
-<br>
-💻 Программист
-<br>
-🎤 Спикер
-
-</div>
-
-<button
-class="primary"
-onclick="joinTeam()">
-
-Присоединиться
-
-</button>
-
-</div>
-
-
-<div class="team-card">
-
-<div class="team-title">
-🎤 Debate Cup
-</div>
-
-<div class="members">
-
-Нужен:
-
-<br>
-🗣️ Участник команды
-
-</div>
-
-<button
-class="primary"
-onclick="joinTeam()">
-
-Присоединиться
-
-</button>
-
-</div>
-
-</div>
-</section>
-
-
-<!-- ================= FAVORITES ================= -->
-
-<section id="favorites" class="page">
+<section class="page" id="profile">
 
 <div class="container">
 
-<h1>❤️ Мои мероприятия</h1>
+<h1>👤 Профиль</h1>
 
-<p class="subtitle">
-То, что ты сохранил
+<div class="profile-card" style="margin-top:18px">
+
+<div class="avatar">A</div>
+
+<h2>Ученик EduPulse</h2>
+
+<p id="profileDetails">
+9 класс
 </p>
 
-<div id="favoriteEvents"></div>
+</div>
+
+
+<div class="progress-card">
+
+<div class="progress-head">
+<b>Профиль заполнен</b>
+<b>72%</b>
+</div>
+
+<div class="progress">
+<div></div>
+</div>
+
+</div>
+
+
+<div class="section-title">
+<h2>⚙️ Настройки</h2>
+</div>
+
+<button
+class="secondary"
+style="width:100%;margin-bottom:10px"
+onclick="resetProfile()">
+
+Сбросить профиль
+
+</button>
+
+<button
+class="secondary"
+style="width:100%"
+onclick="showPage('path')">
+
+🧭 Посмотреть траекторию
+
+</button>
 
 </div>
 </section>
@@ -891,8 +1563,7 @@ onclick="joinTeam()">
 
 <div class="modal-box">
 
-<button class="close"
-onclick="closeModal()">×</button>
+<button class="close" onclick="closeModal()">×</button>
 
 <div id="modalContent"></div>
 
@@ -901,52 +1572,33 @@ onclick="closeModal()">×</button>
 </div>
 
 
-<!-- NAVIGATION -->
+<!-- NAV -->
 
 <nav class="nav">
 
-<button class="active"
-onclick="navigate(this,'home')">
-
-<div>🏠</div>
+<button class="active" onclick="navigate(this,'home')">
+<div>⌂</div>
 Главная
-
 </button>
 
+<button onclick="navigate(this,'events')">
+<div>✨</div>
+Возможности
+</button>
 
-<button
-onclick="navigate(this,'ai')">
-
+<button onclick="navigate(this,'ai')">
 <div>🤖</div>
 AI
-
 </button>
 
-
-<button
-onclick="navigate(this,'team')">
-
+<button onclick="navigate(this,'community')">
 <div>👥</div>
-Команда
-
+Команды
 </button>
 
-
-<button
-onclick="navigate(this,'portfolio')">
-
+<button onclick="navigate(this,'portfolio')">
 <div>🎓</div>
 Портфолио
-
-</button>
-
-
-<button
-onclick="navigate(this,'favorites')">
-
-<div>❤️</div>
-Мои
-
 </button>
 
 </nav>
@@ -956,18 +1608,20 @@ onclick="navigate(this,'favorites')">
 
 /* ================= DATA ================= */
 
-const events = [
+const events=[
 
 {
 id:1,
 title:"Республиканская олимпиада по математике",
 type:"Олимпиада",
 date:"25 сентября",
-days:2,
 deadline:"23 сентября",
+days:2,
 direction:"math",
+match:94,
 level:"Республика",
 portfolio:"Высокая",
+icon:"📐",
 description:"Олимпиада для школьников, интересующихся математикой."
 },
 
@@ -976,11 +1630,13 @@ id:2,
 title:"Math Challenge",
 type:"Олимпиада",
 date:"30 сентября",
-days:7,
 deadline:"28 сентября",
+days:7,
 direction:"math",
+match:91,
 level:"Международный",
 portfolio:"Высокая",
+icon:"🏆",
 description:"Математический конкурс для школьников."
 },
 
@@ -989,12 +1645,14 @@ id:3,
 title:"NIS Debate Cup",
 type:"Дебаты",
 date:"28 сентября",
-days:5,
 deadline:"25 сентября",
+days:5,
 direction:"business",
+match:82,
 level:"Республиканский",
 portfolio:"Высокая",
-description:"Командный турнир по дебатам."
+icon:"🎤",
+description:"Командный дебатный турнир."
 },
 
 {
@@ -1002,12 +1660,14 @@ id:4,
 title:"Kazakhstan IT Hackathon",
 type:"Проект",
 date:"5 октября",
-days:12,
 deadline:"1 октября",
+days:12,
 direction:"it",
+match:96,
 level:"Республика",
 portfolio:"Высокая",
-description:"Школьный хакатон для создания цифровых проектов."
+icon:"💻",
+description:"Хакатон для школьников, создающих цифровые проекты."
 },
 
 {
@@ -1015,11 +1675,13 @@ id:5,
 title:"Young Scientists Competition",
 type:"Конкурс",
 date:"10 октября",
-days:17,
 deadline:"5 октября",
+days:17,
 direction:"science",
+match:87,
 level:"Международный",
 portfolio:"Высокая",
+icon:"🔬",
 description:"Научный конкурс для школьников."
 },
 
@@ -1028,11 +1690,13 @@ id:6,
 title:"School Design Challenge",
 type:"Конкурс",
 date:"12 октября",
-days:19,
 deadline:"8 октября",
+days:19,
 direction:"design",
+match:88,
 level:"Республика",
 portfolio:"Средняя",
+icon:"🎨",
 description:"Конкурс дизайнерских работ."
 },
 
@@ -1041,20 +1705,111 @@ id:7,
 title:"Startup Challenge",
 type:"Проект",
 date:"15 октября",
-days:22,
 deadline:"10 октября",
+days:22,
 direction:"business",
+match:84,
 level:"Республика",
 portfolio:"Высокая",
-description:"Конкурс бизнес-идей и стартапов."
+icon:"🚀",
+description:"Конкурс стартапов и бизнес-идей."
 }
 
 ];
 
 
-let filter="Все";
-let direction=null;
-let goal=null;
+/* ================= PROFILE ================= */
+
+let profile=JSON.parse(
+localStorage.getItem("edupulse_profile")||"null"
+);
+
+let obStep=1;
+
+let tempProfile={
+grade:null,
+interests:[],
+goal:null
+};
+
+
+function pick(button,type,value){
+
+button.parentElement
+.querySelectorAll(".choice")
+.forEach(x=>x.classList.remove("selected"));
+
+button.classList.add("selected");
+
+tempProfile[type]=value;
+
+}
+
+
+function toggleMulti(button,value){
+
+button.classList.toggle("selected");
+
+if(tempProfile.interests.includes(value)){
+
+tempProfile.interests=
+tempProfile.interests.filter(x=>x!==value);
+
+}else{
+
+tempProfile.interests.push(value);
+
+}
+
+}
+
+
+function nextOnboarding(){
+
+if(obStep===1 && !tempProfile.grade){
+alert("Выбери класс.");
+return;
+}
+
+if(obStep===2 && !tempProfile.interests.length){
+alert("Выбери хотя бы одно направление.");
+return;
+}
+
+obStep++;
+
+document.querySelectorAll(".ob-step")
+.forEach(x=>x.classList.remove("active"));
+
+document.getElementById("ob"+obStep)
+.classList.add("active");
+
+document.getElementById("obProgress")
+.style.width=(obStep*33.33)+"%";
+
+}
+
+
+function finishOnboarding(){
+
+if(!tempProfile.goal){
+alert("Выбери цель.");
+return;
+}
+
+profile=tempProfile;
+
+localStorage.setItem(
+"edupulse_profile",
+JSON.stringify(profile)
+);
+
+document.getElementById("onboarding")
+.classList.add("hidden");
+
+updateProfile();
+
+}
 
 
 /* ================= NAVIGATION ================= */
@@ -1062,7 +1817,7 @@ let goal=null;
 function navigate(button,page){
 
 document.querySelectorAll(".nav button")
-.forEach(b=>b.classList.remove("active"));
+.forEach(x=>x.classList.remove("active"));
 
 button.classList.add("active");
 
@@ -1074,36 +1829,41 @@ showPage(page);
 function showPage(page){
 
 document.querySelectorAll(".page")
-.forEach(p=>p.classList.remove("active"));
+.forEach(x=>x.classList.remove("active"));
 
-document.getElementById(page)
-.classList.add("active");
+let target=document.getElementById(page);
+
+if(target){
+target.classList.add("active");
+}
 
 window.scrollTo(0,0);
 
-if(page==="favorites"){
-renderFavorites();
-}
+if(page==="events") renderEvents();
+if(page==="portfolio") updateProfile();
 
 }
 
 
-/* ================= EVENTS ================= */
+/* ================= RENDER ================= */
 
-function createCard(e){
+let currentFilter="Все";
 
-let saved=getFavorites().includes(e.id);
+
+function eventCard(e){
+
+let fav=getFavorites().includes(e.id);
 
 return `
 
-<div class="card">
+<div class="event">
 
-<div class="card-head">
+<div class="event-top">
 
 <div>
 
-<span class="type">
-${e.type}
+<span class="event-type">
+${e.icon} ${e.type}
 </span>
 
 <h3>${e.title}</h3>
@@ -1114,14 +1874,14 @@ ${e.type}
 class="heart"
 onclick="toggleFavorite(${e.id})">
 
-${saved ? "❤️":"♡"}
+${fav?"❤️":"♡"}
 
 </button>
 
 </div>
 
 
-<div class="info">
+<div class="event-info">
 
 📅 ${e.date}<br>
 ⏳ Дедлайн: ${e.deadline}<br>
@@ -1130,27 +1890,12 @@ ${saved ? "❤️":"♡"}
 </div>
 
 
-<div class="tags">
-
-<span class="tag">
-🎓 Портфолио: ${e.portfolio}
-</span>
-
-<span class="tag">
-👤 Школьники
-</span>
-
+<div class="match">
+🎯 ${e.match}% Match
 </div>
 
 
-<div class="portfolio">
-
-💡 Подходит для портфолио: <b>${e.portfolio}</b>
-
-</div>
-
-
-<div class="buttons">
+<div class="event-actions">
 
 <button
 class="primary"
@@ -1180,55 +1925,71 @@ onclick="addCalendar('${e.title}')">
 function renderEvents(){
 
 let search=
-document.getElementById("search").value.toLowerCase();
+(document.getElementById("search")?.value||"")
+.toLowerCase();
 
-let filtered=events.filter(e=>{
+let list=events.filter(e=>{
 
-let f=
-filter==="Все" || e.type===filter;
+let f=currentFilter==="Все"||e.type===currentFilter;
 
-let s=
-e.title.toLowerCase().includes(search);
+let s=e.title.toLowerCase().includes(search);
 
-return f && s;
+return f&&s;
 
 });
 
-document.getElementById("events").innerHTML=
-filtered.length
-? filtered.map(createCard).join("")
-: `<div class="empty">🔎 Ничего не найдено</div>`;
+document.getElementById("eventsList").innerHTML=
+list.length
+?list.map(eventCard).join("")
+:`<div class="empty">🔎 Ничего не найдено</div>`;
 
 }
 
 
 function renderDeadlines(){
 
-let nearest=events
-.filter(e=>e.days<=12)
+let list=events
 .sort((a,b)=>a.days-b.days)
 .slice(0,3);
 
 document.getElementById("deadlines").innerHTML=
-nearest.map(e=>createCard(e)).join("");
+list.map(e=>`
+
+<div class="deadline">
+
+<div class="deadline-icon">
+${e.icon}
+</div>
+
+<div class="deadline-main">
+
+<b>${e.title}</b>
+<span>Дедлайн: ${e.deadline}</span>
+
+</div>
+
+<div class="deadline-time">
+${e.days<=1?"Завтра":"через "+e.days+" дн."}
+</div>
+
+</div>
+
+`).join("");
 
 }
 
 
-function setFilter(value,button){
+function renderRecommended(){
 
-filter=value;
+let interests=profile?.interests||["it","math"];
 
-if(button){
+let list=events
+.filter(e=>interests.includes(e.direction))
+.sort((a,b)=>b.match-a)
+.slice(0,3);
 
-document.querySelectorAll(".filter")
-.forEach(x=>x.classList.remove("active"));
-
-button.classList.add("active");
-
-}
-
-renderEvents();
+document.getElementById("recommended").innerHTML=
+list.map(eventCard).join("");
 
 }
 
@@ -1238,8 +1999,7 @@ renderEvents();
 function getFavorites(){
 
 return JSON.parse(
-localStorage.getItem("edupulse")
-||"[]"
+localStorage.getItem("edupulse_favorites")||"[]"
 );
 
 }
@@ -1256,54 +2016,26 @@ list.push(id);
 }
 
 localStorage.setItem(
-"edupulse",
+"edupulse_favorites",
 JSON.stringify(list)
 );
 
 renderEvents();
-renderDeadlines();
-renderFavorites();
+renderRecommended();
 
 }
 
 
-function renderFavorites(){
+function setFilter(value,button){
 
-let list=getFavorites();
+currentFilter=value;
 
-let saved=
-events.filter(e=>list.includes(e.id));
+document.querySelectorAll(".filter")
+.forEach(x=>x.classList.remove("active"));
 
-let box=
-document.getElementById("favoriteEvents");
+button.classList.add("active");
 
-if(!saved.length){
-
-box.innerHTML=`
-
-<div class="empty">
-
-<div style="font-size:45px">
-❤️
-</div>
-
-<h3>Здесь пока пусто</h3>
-
-<p>
-Сохраняй интересные мероприятия,
-чтобы не потерять их.
-</p>
-
-</div>
-
-`;
-
-return;
-
-}
-
-box.innerHTML=
-saved.map(createCard).join("");
+renderEvents();
 
 }
 
@@ -1316,7 +2048,9 @@ let e=events.find(x=>x.id===id);
 
 document.getElementById("modalContent").innerHTML=`
 
-<span class="type">${e.type}</span>
+<span class="event-type">
+${e.icon} ${e.type}
+</span>
 
 <h2>${e.title}</h2>
 
@@ -1326,156 +2060,232 @@ document.getElementById("modalContent").innerHTML=`
 
 <p>🏆 <b>Уровень:</b> ${e.level}</p>
 
-<p>🎓 <b>Портфолио:</b> ${e.portfolio}</p>
+<p>🎯 <b>AI Match:</b> ${e.match}%</p>
 
 <p>${e.description}</p>
 
-<div class="portfolio">
+<div class="progress-card">
 
-🤖 <b>Почему это может быть полезно?</b><br><br>
+<b>🤖 Почему AI рекомендует?</b>
 
-Мероприятие соответствует выбранному
-направлению и может стать одним из элементов
-образовательного портфолио.
+<p class="muted" style="margin-top:8px">
+
+✓ Соответствует твоему направлению<br>
+✓ Подходит для твоего уровня<br>
+✓ Может усилить портфолио<br>
+✓ Помогает двигаться к цели
+
+</p>
 
 </div>
 
 <button
 class="primary"
-style="margin-top:15px"
-onclick="toggleFavorite(${e.id});closeModal()">
+style="margin-top:14px"
+onclick="registerEvent('${e.title}')">
 
-❤️ Сохранить
+🚀 Участвовать
 
 </button>
 
 `;
 
-document
-.getElementById("modal")
-.classList.add("active");
+document.getElementById("modal")
+.classList.add("show");
 
 }
 
 
 function closeModal(){
 
-document
-.getElementById("modal")
-.classList.remove("active");
+document.getElementById("modal")
+.classList.remove("show");
+
+}
+
+
+function registerEvent(title){
+
+alert(
+"✅ Ты выбрал участие!\n\n"+title+
+"\n\nВ полноценной версии здесь откроется регистрация."
+);
+
+closeModal();
+
+}
+
+
+function addCalendar(title){
+
+alert(
+"📅 "+title+
+"\n\nДобавлено в календарь.\n\nВ полной версии будет Google Calendar / Apple Calendar."
+);
 
 }
 
 
 /* ================= AI ================= */
 
-function chooseDirection(button,value){
-
-document.querySelectorAll(".options .option")
-.forEach(x=>{
-if(!x.classList.contains("goal"))
-x.classList.remove("selected");
-});
-
-button.classList.add("selected");
-
-direction=value;
-
-}
+let aiGoal=null;
 
 
-function chooseGoal(button,value){
+function aiChoose(button,value){
 
-document.querySelectorAll(".goal")
+document.querySelectorAll(".question .option")
 .forEach(x=>x.classList.remove("selected"));
 
 button.classList.add("selected");
 
-goal=value;
+aiGoal=value;
 
-}
-
-
-function recommend(){
-
-let result=
-document.getElementById("aiResult");
-
-if(!direction){
-
-result.innerHTML=`
-
-<div class="card">
-⚠️ Выбери направление.
-</div>
-
-`;
-
-return;
-
-}
-
-
-let selected=
-events.filter(e=>e.direction===direction);
-
-
-if(goal==="portfolio"){
-
-selected=
-selected.filter(e=>e.portfolio==="Высокая");
-
-}
-
-
-let directionNames={
-math:"математикой",
-it:"IT",
-business:"бизнесом",
-design:"дизайном",
-science:"наукой"
+let messages={
+portfolio:"Хочу усилить своё портфолио.",
+olymp:"Хочу найти олимпиаду.",
+project:"Хочу найти проект.",
+team:"Хочу найти команду."
 };
 
+document.getElementById("aiChat").innerHTML+=`
 
-result.innerHTML=`
-
-<div class="card">
-
-<h2>🎯 Твоя траектория</h2>
-
-<p class="info">
-
-Ты выбрал направление:
-<b>${directionNames[direction]}</b>.
-
-</p>
-
-<div class="portfolio">
-
-<b>Шаг 1</b><br>
-Выбери подходящее мероприятие
-
-<br><br>
-
-<b>Шаг 2</b><br>
-Участвуй и получи результат
-
-<br><br>
-
-<b>Шаг 3</b><br>
-Добавь достижение в портфолио
-
+<div class="user-message">
+${messages[value]}
 </div>
 
+<div class="ai-message">
+Отлично. Я проанализировал твою цель.
+Сейчас покажу, что лучше сделать следующим шагом.
 </div>
-
-<h2 style="margin:20px 0 12px">
-✨ Рекомендации
-</h2>
-
-${selected.map(createCard).join("")}
 
 `;
+
+if(value==="team"){
+
+showTeamAI();
+
+}else{
+
+showRecommendationsAI();
+
+}
+
+}
+
+
+function showRecommendationsAI(){
+
+let interests=profile?.interests||["it","math"];
+
+let list=events
+.filter(e=>interests.includes(e.direction))
+.sort((a,b)=>b.match-a)
+.slice(0,2);
+
+document.getElementById("aiChat").innerHTML+=`
+
+<div class="ai-message">
+
+🎯 <b>Моя рекомендация</b><br><br>
+
+На основе твоего профиля я бы начал с:
+
+<br><br>
+
+${list.map(e=>
+`<b>${e.icon} ${e.title}</b>
+- ${e.match}% Match<br>`
+).join("<br>")}
+
+<br>
+
+Следующий шаг - выбрать одно мероприятие
+и добавить его в свою траекторию.
+
+</div>
+
+`;
+
+}
+
+
+function showTeamAI(){
+
+document.getElementById("aiChat").innerHTML+=`
+
+<div class="ai-message">
+
+👥 Тебе подойдут командные проекты.
+
+Сейчас есть команды, которым нужны
+дизайнеры, разработчики и аналитики.
+
+Перейди в раздел
+<b>«Команды»</b>, чтобы найти участников.
+
+</div>
+
+`;
+
+}
+
+
+function askAI(){
+
+let input=document.getElementById("aiInput");
+
+let text=input.value.trim();
+
+if(!text)return;
+
+document.getElementById("aiChat").innerHTML+=`
+
+<div class="user-message">
+${escapeHTML(text)}
+</div>
+
+`;
+
+let answer="";
+
+let lower=text.toLowerCase();
+
+if(lower.includes("олимпиад")){
+
+answer=
+"Для олимпиады я бы сначала посмотрел на Math Challenge и Республиканскую олимпиаду по математике. Выбор зависит от твоего уровня и цели.";
+
+}else if(lower.includes("портфолио")){
+
+answer=
+"Чтобы усилить портфолио, полезно сочетать академические достижения, проекты, командную работу и международный опыт. Сейчас тебе стоит добавить проект или олимпиаду.";
+
+}else if(lower.includes("университет")){
+
+answer=
+"Если твоя цель - университет, начни с мероприятий, связанных с интересующей специальностью. Затем добавляй проекты и исследовательский опыт.";
+
+}else if(lower.includes("команд")){
+
+answer=
+"В разделе «Команды» сейчас есть проекты, где ищут разработчиков, дизайнеров, аналитиков и спикеров.";
+
+}else{
+
+answer=
+"Я бы начал с анализа твоей цели и интересов. Выбери одну из целей выше, и я подберу подходящие возможности.";
+
+}
+
+document.getElementById("aiChat").innerHTML+=`
+
+<div class="ai-message">
+${answer}
+</div>
+
+`;
+
+input.value="";
 
 }
 
@@ -1485,28 +2295,101 @@ ${selected.map(createCard).join("")}
 function joinTeam(){
 
 alert(
-"✅ Заявка отправлена!\n\nВ полной версии участники смогут связаться друг с другом через чат."
+"🎉 Заявка отправлена!\n\nВ полноценной версии создатель команды сможет принять тебя и открыть общий чат."
 );
 
 }
 
 
-/* ================= CALENDAR ================= */
+/* ================= PORTFOLIO ================= */
 
-function addCalendar(title){
+function generateCV(){
 
 alert(
-`📅 ${title}\n\nМероприятие добавлено в календарь.\n\nВ полной версии здесь будет интеграция с Google Calendar / Apple Calendar.`
+"📄 CV создано!\n\nВ следующей версии здесь будет генерация настоящего PDF-резюме из твоего портфолио."
 );
+
+}
+
+
+/* ================= PROFILE ================= */
+
+function updateProfile(){
+
+if(!profile)return;
+
+let names={
+math:"Математика",
+it:"IT",
+science:"Наука",
+design:"Дизайн",
+business:"Бизнес",
+debate:"Дебаты"
+};
+
+let interests=profile.interests
+.map(x=>names[x])
+.join(" · ");
+
+document.getElementById("hello").textContent=
+"Привет! 👋";
+
+document.getElementById("profileInfo").textContent=
+profile.grade+
+" класс · "+
+interests;
+
+document.getElementById("profileDetails").textContent=
+profile.grade+
+" класс · "+
+interests;
+
+renderRecommended();
+
+}
+
+
+function resetProfile(){
+
+localStorage.removeItem("edupulse_profile");
+
+location.reload();
+
+}
+
+
+/* ================= SECURITY ================= */
+
+function escapeHTML(text){
+
+return text
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
 
 /* ================= START ================= */
 
-renderEvents();
+if(profile){
+
+document.getElementById("onboarding")
+.classList.add("hidden");
+
+updateProfile();
+
+}else{
+
+document.getElementById("onboarding")
+.classList.remove("hidden");
+
+}
+
 renderDeadlines();
-renderFavorites();
+renderEvents();
 
 </script>
 
